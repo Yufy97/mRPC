@@ -13,11 +13,11 @@ import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
 import java.io.IOException;
 
 @Slf4j
-public class RegisterServiceImpl implements RegisterService {
+public class ZkRegisterService implements RegisterService {
 
     private ServiceDiscovery<ServiceInfo> serviceDiscovery;
 
-    public RegisterServiceImpl(RegisterConfig registerConfig) {
+    public ZkRegisterService(RegisterConfig registerConfig) {
         try {
             CuratorFramework client = CuratorFrameworkFactory.newClient(registerConfig.getRegistryAddr(),
                     new ExponentialBackoffRetry(registerConfig.getBaseSleepTime(), registerConfig.getMaxRetries()));

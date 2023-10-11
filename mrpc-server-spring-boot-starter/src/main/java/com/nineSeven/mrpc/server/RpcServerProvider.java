@@ -14,7 +14,6 @@ import org.springframework.boot.CommandLineRunner;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 @Slf4j
 public class RpcServerProvider implements BeanPostProcessor, CommandLineRunner {
@@ -61,7 +60,7 @@ public class RpcServerProvider implements BeanPostProcessor, CommandLineRunner {
                 log.error("服务注册出错:{}", e);
             }
         }
-        return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+        return bean;
     }
 
     @Override

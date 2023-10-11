@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.nineSeven.mrpc.core.register.RegisterConfig;
 import com.nineSeven.mrpc.core.register.RegisterService;
-import com.nineSeven.mrpc.core.register.RegisterServiceImpl;
+import com.nineSeven.mrpc.core.register.ZkRegisterService;
 
 @Configuration
 @EnableConfigurationProperties(RpcServerProperties.class)
@@ -22,7 +22,7 @@ public class RpcServerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(RegisterService.class)
     public RegisterService registerService() {
-        return new RegisterServiceImpl(RegisterConfig.builder()
+        return new ZkRegisterService(RegisterConfig.builder()
                 .basePath(serverProperties.getBasePath())
                 .baseSleepTime(serverProperties.getBaseSleepTime())
                 .maxRetries(serverProperties.getMaxRetries())
