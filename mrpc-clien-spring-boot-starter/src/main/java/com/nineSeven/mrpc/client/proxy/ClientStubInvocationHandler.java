@@ -1,6 +1,8 @@
-package com.nineSeven.mrpc.client.handler;
+package com.nineSeven.mrpc.client.proxy;
 
 import com.nineSeven.mrpc.client.config.RpcClientProperties;
+import com.nineSeven.mrpc.client.transport.NetClientTransportFactory;
+import com.nineSeven.mrpc.client.transport.RequestMetaData;
 import com.nineSeven.mrpc.core.common.RpcRequest;
 import com.nineSeven.mrpc.core.common.RpcResponse;
 import com.nineSeven.mrpc.core.common.ServiceInfo;
@@ -57,8 +59,13 @@ public class ClientStubInvocationHandler implements InvocationHandler {
         rpcRequest.setServiceName(serviceName);
         request.setBody(rpcRequest);
 
-        //todo netty发送请求
-        MessageProtocol<RpcResponse> response = null;
+        MessageProtocol<RpcResponse> response = NetClientTransportFactory.getNetClientTransport().sendRequest(
+                RequestMetaData.builder()
+                        .address(serviceInfo.getAddress())
+                        .port(serviceInfo.getPort())
+                        .timeout(properties.getTimeout())
+                        .protocol(request)
+                        .build());
 
         if (response == null) {
             log.error("请求超时");

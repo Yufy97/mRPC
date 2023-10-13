@@ -16,7 +16,6 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import static com.nineSeven.mrpc.core.protocol.MsgType.REQUEST;
 
 /**
  * 解码器

@@ -9,6 +9,7 @@ import com.nineSeven.mrpc.core.discover.DiscoverConfig;
 import com.nineSeven.mrpc.core.discover.DiscoveryService;
 import com.nineSeven.mrpc.core.discover.ZkDiscoverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -41,6 +42,7 @@ public class RpcClientAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnBean({BalancePolicy.class, RpcClientProperties.class})
     public DiscoveryService discoveryService(@Autowired BalancePolicy balance) {
         DiscoverConfig config = DiscoverConfig.builder()
                 .baseSleepTime(properties.getBaseSleepTime())
@@ -59,8 +61,9 @@ public class RpcClientAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public RpcClientProcessor rpcClientProcessor(@Autowired DiscoveryService discoveryService, @Autowired ClientStubProxyFactory proxyFactory,
-                                                 @Autowired ApplicationContext context) {
-        return new RpcClientProcessor(discoveryService, proxyFactory, properties, context);
+    @ConditionalOnBean({DiscoveryService.class, ClientStubProxyFactory.class})
+    public RpcClientProcessor rpcClientProcessor(@Autowired DiscoveryService discoveryService,
+                                                 @Autowired ClientStubProxyFactory proxyFactory) {
+        return new RpcClientProcessor(discoveryService, proxyFactory, properties);
     }
 }

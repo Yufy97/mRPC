@@ -24,11 +24,11 @@ public class RpcClientProcessor implements BeanFactoryPostProcessor, Application
 
     private ApplicationContext applicationContext;
 
-    public RpcClientProcessor(DiscoveryService discoveryService, ClientStubProxyFactory clientStubProxyFactory, RpcClientProperties properties, ApplicationContext applicationContext) {
+    public RpcClientProcessor(DiscoveryService discoveryService, ClientStubProxyFactory clientStubProxyFactory,
+                              RpcClientProperties properties) {
         this.discoveryService = discoveryService;
         this.clientStubProxyFactory = clientStubProxyFactory;
         this.properties = properties;
-        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -47,7 +47,8 @@ public class RpcClientProcessor implements BeanFactoryPostProcessor, Application
                         Object bean = applicationContext.getBean(clazz);
                         field.setAccessible(true);
                         // 修改为代理对象
-                        ReflectionUtils.setField(field, bean, clientStubProxyFactory.getProxy(field.getType(), rpcAutowired.version(), discoveryService, properties));
+                        ReflectionUtils.setField(field, bean, clientStubProxyFactory.getProxy(field.getType(),
+                                rpcAutowired.version(), discoveryService, properties));
                     }
                 });
             }

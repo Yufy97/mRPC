@@ -1,7 +1,6 @@
 package com.nineSeven.mrpc.client.proxy;
 
 import com.nineSeven.mrpc.client.config.RpcClientProperties;
-import com.nineSeven.mrpc.client.handler.ClientStubInvocationHandler;
 import com.nineSeven.mrpc.core.discover.DiscoveryService;
 
 import java.lang.reflect.Proxy;
