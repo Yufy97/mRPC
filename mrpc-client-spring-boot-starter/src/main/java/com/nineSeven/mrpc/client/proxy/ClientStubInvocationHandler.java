@@ -54,7 +54,7 @@ public class ClientStubInvocationHandler implements InvocationHandler {
 
         RpcRequest rpcRequest = new RpcRequest();
         rpcRequest.setMethod(method.getName());
-        rpcRequest.setParameters(method.getParameters());
+        rpcRequest.setParameters(args);
         rpcRequest.setParameterTypes(method.getParameterTypes());
         rpcRequest.setServiceName(serviceName);
         request.setBody(rpcRequest);

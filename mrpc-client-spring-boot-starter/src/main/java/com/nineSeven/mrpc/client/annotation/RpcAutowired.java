@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Autowired
+//@Autowired
 public @interface RpcAutowired {
 
     String version() default "1.0";

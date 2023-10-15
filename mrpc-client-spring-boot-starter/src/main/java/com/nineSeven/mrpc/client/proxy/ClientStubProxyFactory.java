@@ -12,7 +12,7 @@ public class ClientStubProxyFactory {
     private Map<Class<?>, Object> objectCache = new HashMap<>();
 
     public <T> T getProxy(Class<T> clazz, String version, DiscoveryService discoveryService, RpcClientProperties properties) {
-        return (T) objectCache.computeIfAbsent(clazz, clz -> Proxy.newProxyInstance(clz.getClassLoader(), new Class[]{clazz},
-                new ClientStubInvocationHandler(discoveryService, properties, clazz, version)));
+        return (T) objectCache.computeIfAbsent(clazz, clz -> Proxy.newProxyInstance(clz.getClassLoader(), new Class[]{clz},
+                new ClientStubInvocationHandler(discoveryService, properties, clz, version)));
     }
 }

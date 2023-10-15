@@ -1,10 +1,8 @@
 package com.nineSeven.mrpc.client.config;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "mrpc.client")
 public class RpcClientProperties {
 
     private String discoveryAddr;

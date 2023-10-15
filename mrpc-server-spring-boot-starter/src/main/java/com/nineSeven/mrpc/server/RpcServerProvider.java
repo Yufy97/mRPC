@@ -49,7 +49,7 @@ public class RpcServerProvider implements BeanPostProcessor, CommandLineRunner {
                 LocalServerCache.store(ServiceUtil.serviceKey(serviceName, version), bean);
 
                 ServiceInfo serviceInfo = new ServiceInfo();
-                serviceInfo.setServiceName(serviceName);
+                serviceInfo.setServiceName(ServiceUtil.serviceKey(serviceName, version));
                 serviceInfo.setVersion(version);
                 serviceInfo.setPort(rpcServerProperties.getPort());
                 serviceInfo.setAddress(InetAddress.getLocalHost().getHostAddress());
