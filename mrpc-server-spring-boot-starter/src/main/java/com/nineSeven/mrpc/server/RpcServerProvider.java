@@ -41,11 +41,13 @@ public class RpcServerProvider implements BeanPostProcessor, CommandLineRunner {
      */
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        RpcService rpcServer = bean.getClass().getAnnotation(RpcService.class);
-        if(rpcServer != null) {
+        RpcService rpcService = bean.getClass().getAnnotation(RpcService.class);
+        if(rpcService != null) {
             try {
-                String serviceName = rpcServer.value().getName();
-                String version = rpcServer.version();
+                String serviceName;
+                if(rpcService.value() == Object.class) serviceName = bean.getClass().getInterfaces()[0].getName();
+                else serviceName = rpcService.value().getName();
+                String version = rpcService.version();
                 LocalServerCache.store(ServiceUtil.serviceKey(serviceName, version), bean);
 
                 ServiceInfo serviceInfo = new ServiceInfo();
@@ -54,7 +56,7 @@ public class RpcServerProvider implements BeanPostProcessor, CommandLineRunner {
                 serviceInfo.setPort(rpcServerProperties.getPort());
                 serviceInfo.setAddress(InetAddress.getLocalHost().getHostAddress());
                 serviceInfo.setAppName(rpcServerProperties.getAppName());
-
+                
                 registerService.register(serviceInfo);
             } catch (Exception e) {
                 log.error("服务注册出错:{}", e);

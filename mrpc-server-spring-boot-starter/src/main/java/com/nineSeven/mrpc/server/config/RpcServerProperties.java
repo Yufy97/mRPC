@@ -11,8 +11,6 @@ public class RpcServerProperties {
 
     private String appName;
 
-//    private String serverAddr;
-
     private String registryAddr;
 
     private Integer baseSleepTime = 3000;
